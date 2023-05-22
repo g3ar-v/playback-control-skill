@@ -14,9 +14,9 @@
 import re
 import random
 from adapt.intent import IntentBuilder
-from mycroft.skills.core import MycroftSkill, intent_handler
-from mycroft.skills.audioservice import AudioService
-from mycroft.audio import wait_while_speaking
+from core.skills import Skill, intent_handler
+from core.skills.audioservice import AudioService
+from core.audio import wait_while_speaking
 from os.path import join, exists
 from threading import Lock
 
@@ -24,7 +24,7 @@ from threading import Lock
 STATUS_KEYS = ['track', 'artist', 'album', 'image']
 
 
-class PlaybackControlSkill(MycroftSkill):
+class PlaybackControlSkill(Skill):
     def __init__(self):
         super(PlaybackControlSkill, self).__init__('Playback Control Skill')
         self.query_replies = {}     # cache of received replies
@@ -85,7 +85,7 @@ class PlaybackControlSkill(MycroftSkill):
         self.add_event('playback.display.audio.type', self.handle_display_audio)
         self.add_event('playback.display.remove', self.handle_remove_player)
 
-        self.clear_gui_info()
+        # self.clear_gui_info()
     # Handle common audio intents.  'Audio' skills should listen for the
     # common messages:
     #   self.add_event('mycroft.audio.service.next', SKILL_HANDLER)
